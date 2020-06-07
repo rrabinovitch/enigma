@@ -23,10 +23,10 @@ class Enigma
   def generate_offset_hash(date)
     sqrd_date = date.to_i ** 2
     offset = sqrd_date.to_s.slice(-4..-1)
-    offset_hash = {A: offset[0],
-      B: offset[1],
-      C: offset[2],
-      D: offset[3]}
+    offset_hash = {A: offset[0].to_i,
+      B: offset[1].to_i,
+      C: offset[2].to_i,
+      D: offset[3].to_i}
   end
 
   def encrypt(message, key = Key.generate, date = formatted_date)
