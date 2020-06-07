@@ -1,4 +1,10 @@
+require 'date'
+
 class Enigma
+  def initialize
+    @date = Date.today.strftime("%d%m") + "20"
+  end
+
   def encrypt(message, key, date)
     # identify A, B, C, and D keys based on key argument value
     # identify A, B, C, and D offsets based on date argument value
