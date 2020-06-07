@@ -14,22 +14,27 @@ class Enigma
   end
 
   def generate_key_hash(key)
-    key_hash = {A: key.slice(0..1),
-      B: key.slice(1..2),
-      C: key.slice(2..3),
-      D: key.slice(3..4)}
+    key_hash = {A: key.slice(0..1).to_i,
+      B: key.slice(1..2).to_i,
+      C: key.slice(2..3).to_i,
+      D: key.slice(3..4).to_i}
   end
 
-  def encrypt(message, key = Key.abcd_keys, date = formatted_date)
+  def generate_offset_hash(date)
+    sqrd_date = date.to_i ** 2
+    offset = sqrd_date.to_s.slice(-4..-1)
+    offset_hash = {A: offset[0],
+      B: offset[1],
+      C: offset[2],
+      D: offset[3]}
+  end
+
+  def encrypt(message, key = Key.generate, date = formatted_date)
     # identify A, B, C, and D keys based on key argument value
     key_hash = generate_key_hash(key)
     # identify A, B, C, and D offsets based on date argument value
-    sqrd_date = date.to_i ** 2
-    offset = sqrd_date.to_s.slice(-4..-1)
-    a_offset = offset.chars[0]
-    b_offset = offset.chars[1]
-    c_offset = offset.chars[2]
-    d_offset = offset.chars[3]
+    offset_hash = generate_offset_hash(date)
+    require "pry"; binding.pry
     # add keys and offsets to identify A, B, C, and D shifts
     a_shift = a_key.to_i + a_offset.to_i
     b_shift = b_key.to_i + b_offset.to_i

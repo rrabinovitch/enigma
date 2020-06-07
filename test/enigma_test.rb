@@ -22,23 +22,21 @@ class EnigmaTest < Minitest::Test
   end
 
   def test_it_can_generate_key_hash
-    key = "06289"
-    assert_instance_of Hash, @enigma.generate_key_hash(key)
-
-    [:A, :B, :C, :D].each do |hash_key|
-      assert_equal true, @enigma.generate_key_hash(key).keys.include?(hash_key)
-    end
-
-    @enigma.generate_key_hash(key).values.each do |enigma_key|
-      assert_equal 2, enigma_key.length
-      assert_equal true, enigma_key.to_i.between?(0, 99)
-    end
+    key = "06289" # refactor to use stub eventually?
+    key_hash = {:A=>6, :B=>62, :C=>28, :D=>89}
+    assert_equal key_hash, @enigma.generate_key_hash(key)
   end
 
   def test_it_has_an_alphabet_with_a_space
     skip
     assert_equal true, @enigma.alphabet.include?(" ")
     assert_equal 27, @enigma.alphabet.count
+  end
+
+  def test_it_can_generate_offset_hash
+    date = "070620"
+    offset_hash = {:A=>"4", :B=>"4", :C=>"0", :D=>"0"}
+    assert_equal offset_hash, @enigma.generate_offset_hash(date)
   end
 
   def test_it_can_encrypt_message_w_key_and_date
