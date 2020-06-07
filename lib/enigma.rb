@@ -15,9 +15,9 @@ class Enigma
 
   def generate_key_hash(key)
     key_hash = {A: key.slice(0..1),
-      B: key.slice(1..2),
-      C: key.slice(2..3),
-      D: key.slice(3..4)}
+      B: key.slice(1..2).to_i,
+      C: key.slice(2..3).to_i,
+      D: key.slice(3..4).to_i}
   end
 
   def generate_offset_hash(date)
