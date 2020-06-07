@@ -13,13 +13,12 @@ class EnigmaTest < Minitest::Test
 
   def test_it_has_todays_date
     assert_instance_of Date, @enigma.today
-
-    # assert_equal 6, enigma.date.length
-    # consider how to use stub here: Date.stubs(:today).returns()
   end
 
   def test_it_can_format_todays_date
-
+    assert_instance_of String, @enigma.formatted_date
+    assert_equal 6, @enigma.formatted_date.length
+    # consider how to use stub here: Date.stubs(:today).returns()
   end
 
   def test_it_can_generate_key_hash
