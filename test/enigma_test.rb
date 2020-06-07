@@ -15,6 +15,12 @@ class EnigmaTest < Minitest::Test
     # consider how to use stub here: Date.stubs(:today).returns()
   end
 
+  def test_it_can_generate_key
+    enigma = Enigma.new
+    assert_instance_of String, enigma.key
+    assert_equal 5, enigma.key.length
+  end
+
   def test_it_can_encrypt_message_w_key_and_date
     skip
     enigma = Enigma.new
