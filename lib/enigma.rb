@@ -20,8 +20,17 @@ class Enigma
     c_key = key.slice(2..3)
     d_key = key.slice(3..4)
     # identify A, B, C, and D offsets based on date argument value
+    sqrd_date = date.to_i ** 2
+    offset = sqrd_date.to_s.slice(-4..-1)
+    a_offset = offset.chars[0]
+    b_offset = offset.chars[1]
+    c_offset = offset.chars[2]
+    d_offset = offset.chars[3]
     # add keys and offsets to identify A, B, C, and D shifts
+  
     # create an array of chars that comprise message argument value
+
+    require "pry"; binding.pry
     # iterate through array to apply each shift to its applicable characters
       # consider #map since the original array is being *transformed*
       # interation contains a conditional that identifies which shift should be used on each character
