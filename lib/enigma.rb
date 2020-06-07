@@ -27,7 +27,10 @@ class Enigma
     c_offset = offset.chars[2]
     d_offset = offset.chars[3]
     # add keys and offsets to identify A, B, C, and D shifts
-  
+    a_shift = a_key.to_i + a_offset.to_i
+    b_shift = b_key.to_i + b_offset.to_i
+    c_shift = c_key.to_i + c_offset.to_i
+    d_shift = d_key.to_i + d_offset.to_i
     # create an array of chars that comprise message argument value
 
     require "pry"; binding.pry
