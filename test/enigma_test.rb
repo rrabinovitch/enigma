@@ -15,6 +15,21 @@ class EnigmaTest < Minitest::Test
     # consider how to use stub here: Date.stubs(:today).returns()
   end
 
+  def test_it_can_generate_key_hash
+    enigma = Enigma.new
+    key = "06289"
+    assert_instance_of Hash, enigma.generate_key_hash(key)
+
+    [:A, :B, :C, :D].each do |hash_key|
+      assert_equal true, enigma.generate_key_hash(key).keys.include?(hash_key)
+    end
+
+    enigma.generate_key_hash(key).values.each do |enigma_key|
+      assert_equal 2, enigma_key.length
+      assert_equal true, enigma_key.to_i.between?(0, 99)
+    end
+  end
+
   def test_it_has_an_alphabet_with_a_space
     skip
     enigma = Enigma.new
