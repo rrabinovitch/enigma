@@ -1,9 +1,39 @@
+require 'date'
+
 class Enigma
-  def encrypt(message, key, date)
+  attr_reader :date
+
+  def initialize
+    @date = Date.today.strftime("%d%m") + Date.today.strftime("%Y")[2..3]
+    # eventually separate date into its own class to be able to better test date attribute and formatting
+    # consider whether it's an issue for the date attribute to be defined by the date on which the enigma instance was initialized - do we need more flexibility?
+  end
+
+  def key
+    '%05d' % rand(99999)
+  end
+
+  def encrypt(message, key = self.key, date = @date)
     # identify A, B, C, and D keys based on key argument value
+    a_key = key.slice(0..1)
+    b_key = key.slice(1..2)
+    c_key = key.slice(2..3)
+    d_key = key.slice(3..4)
     # identify A, B, C, and D offsets based on date argument value
+    sqrd_date = date.to_i ** 2
+    offset = sqrd_date.to_s.slice(-4..-1)
+    a_offset = offset.chars[0]
+    b_offset = offset.chars[1]
+    c_offset = offset.chars[2]
+    d_offset = offset.chars[3]
     # add keys and offsets to identify A, B, C, and D shifts
+    a_shift = a_key.to_i + a_offset.to_i
+    b_shift = b_key.to_i + b_offset.to_i
+    c_shift = c_key.to_i + c_offset.to_i
+    d_shift = d_key.to_i + d_offset.to_i
     # create an array of chars that comprise message argument value
+
+    require "pry"; binding.pry
     # iterate through array to apply each shift to its applicable characters
       # consider #map since the original array is being *transformed*
       # interation contains a conditional that identifies which shift should be used on each character
