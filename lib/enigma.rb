@@ -15,6 +15,10 @@ class Enigma
 
   def encrypt(message, key = self.key, date = @date)
     # identify A, B, C, and D keys based on key argument value
+    a_key = key.slice(0..1)
+    b_key = key.slice(1..2)
+    c_key = key.slice(2..3)
+    d_key = key.slice(3..4)
     # identify A, B, C, and D offsets based on date argument value
     # add keys and offsets to identify A, B, C, and D shifts
     # create an array of chars that comprise message argument value
