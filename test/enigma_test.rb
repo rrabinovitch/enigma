@@ -15,6 +15,12 @@ class EnigmaTest < Minitest::Test
     # consider how to use stub here: Date.stubs(:today).returns()
   end
 
+  def test_it_has_an_alphabet_with_a_space
+    enigma = Enigma.new
+    assert_equal true, enigma.alphabet.include?(" ")
+    assert_equal 27, enigma.alphabet.count
+  end
+
   def test_it_can_generate_key
     enigma = Enigma.new
     assert_instance_of String, enigma.key
