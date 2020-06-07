@@ -10,9 +10,3 @@ class Key
       D: number.slice(3..4)}
   end
 end
-
-
-
-# def key
-#   '%05d' % rand(99999)
-# end
