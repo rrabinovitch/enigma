@@ -16,8 +16,8 @@ class EnigmaTest < Minitest::Test
   end
 
   def test_it_can_format_todays_date
-    assert_instance_of String, @enigma.formatted_date
-    assert_equal 6, @enigma.formatted_date.length
+    assert_instance_of String, @enigma.format_date
+    assert_equal 6, @enigma.format_date.length
     # consider how to use stub here: Date.stubs(:today).returns()
   end
 

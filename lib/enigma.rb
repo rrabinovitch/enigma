@@ -9,7 +9,7 @@ class Enigma
     # consider whether it's an issue for the date attribute to be defined by the date on which the enigma instance was initialized - do we need more flexibility?
   end
 
-  def formatted_date
+  def format_date
     @today.strftime("%d%m") + @today.strftime("%Y")[2..3]
   end
 
