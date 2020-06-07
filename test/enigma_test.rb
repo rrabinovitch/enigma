@@ -22,7 +22,7 @@ class EnigmaTest < Minitest::Test
   end
 
   def test_it_can_generate_key_hash
-    key = "06289"
+    key = "06289" # refactor to use stub eventually?
     assert_instance_of Hash, @enigma.generate_key_hash(key)
 
     [:A, :B, :C, :D].each do |hash_key|
@@ -39,6 +39,11 @@ class EnigmaTest < Minitest::Test
     skip
     assert_equal true, @enigma.alphabet.include?(" ")
     assert_equal 27, @enigma.alphabet.count
+  end
+
+  def test_it_can_generate_offset_hash
+    date = "070620"
+    assert_instance_of Hash, @enigma.generate_offset_hash(date)
   end
 
   def test_it_can_encrypt_message_w_key_and_date
