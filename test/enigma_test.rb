@@ -34,8 +34,10 @@ class EnigmaTest < Minitest::Test
   end
 
   def test_it_can_generate_shift_hash
-    key = "02715"
-    date = "040895"
+    key_hash = {:A=>2, :B=>27, :C=>71, :D=>15}
+    offset_hash = {:A=>1, :B=>0, :C=>2, :D=>5}
+    shift_hash = {A: 3, B: 27, C: 73, D: 20}
+    assert_equal shift_hash, @enigma.generate_shift_hash(key_hash, offset_hash)
   end
 
   def test_it_can_encrypt_message_w_key_and_date
