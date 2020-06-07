@@ -8,7 +8,13 @@ class EnigmaTest < Minitest::Test
     assert_instance_of Enigma, enigma
   end
 
+  def test_it_has_date
+    enigma = Enigma.new
+    assert_instace_of Date, enigma.date
+  end
+
   def test_it_can_encrypt_message_w_key_and_date
+    skip
     enigma = Enigma.new
     encryption_result = {
       encryption: "keder ohulw",
