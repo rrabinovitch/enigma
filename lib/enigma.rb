@@ -1,4 +1,5 @@
 require 'date'
+require_relative 'key'
 
 class Enigma
   attr_reader :date
@@ -9,16 +10,16 @@ class Enigma
     # consider whether it's an issue for the date attribute to be defined by the date on which the enigma instance was initialized - do we need more flexibility?
   end
 
-  def key
-    '%05d' % rand(99999)
+  def generate_key_hash(key)
+    key_hash = {A: key.slice(0..1),
+      B: key.slice(1..2),
+      C: key.slice(2..3),
+      D: key.slice(3..4)}
   end
 
-  def encrypt(message, key = self.key, date = @date)
+  def encrypt(message, key = Key.abcd_keys, date = @date)
     # identify A, B, C, and D keys based on key argument value
-    a_key = key.slice(0..1)
-    b_key = key.slice(1..2)
-    c_key = key.slice(2..3)
-    d_key = key.slice(3..4)
+    key_hash = generate_key_hash(key)
     # identify A, B, C, and D offsets based on date argument value
     sqrd_date = date.to_i ** 2
     offset = sqrd_date.to_s.slice(-4..-1)
@@ -33,7 +34,6 @@ class Enigma
     d_shift = d_key.to_i + d_offset.to_i
     # create an array of chars that comprise message argument value
 
-    require "pry"; binding.pry
     # iterate through array to apply each shift to its applicable characters
       # consider #map since the original array is being *transformed*
       # interation contains a conditional that identifies which shift should be used on each character
