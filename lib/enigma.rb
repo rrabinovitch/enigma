@@ -1,11 +1,14 @@
 require 'date'
 
 class Enigma
+  attr_reader :date
+
   def initialize
-    @date = Date.today.strftime("%d%m") + "20"
+    @date = Date.today.strftime("%d%m") + Date.today.strftime("%Y")[2..3]
+    # eventually separate date into its own class to be able to better test date attribute and formatting
   end
 
-  def encrypt(message, key, date)
+  def encrypt(message, key, date = @date)
     # identify A, B, C, and D keys based on key argument value
     # identify A, B, C, and D offsets based on date argument value
     # add keys and offsets to identify A, B, C, and D shifts

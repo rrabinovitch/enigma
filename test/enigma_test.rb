@@ -10,7 +10,9 @@ class EnigmaTest < Minitest::Test
 
   def test_it_has_date
     enigma = Enigma.new
-    assert_instace_of Date, enigma.date
+    assert_instance_of String, enigma.date
+    assert_equal 6, enigma.date.length
+    # consider how to use stub here: Date.stubs(:today).returns()
   end
 
   def test_it_can_encrypt_message_w_key_and_date
