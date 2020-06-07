@@ -3,28 +3,33 @@ require 'minitest/pride'
 require './lib/enigma'
 
 class EnigmaTest < Minitest::Test
-  def test_it_exits
-    enigma = Enigma.new
-    assert_instance_of Enigma, enigma
+  def setup
+    @enigma = Enigma.new
   end
 
-  def test_it_has_date
-    enigma = Enigma.new
-    assert_instance_of String, enigma.date
-    assert_equal 6, enigma.date.length
+  def test_it_exits
+    assert_instance_of Enigma, @enigma
+  end
+
+  def test_it_has_todays_date
+    assert_instance_of Date, @enigma.today
+  end
+
+  def test_it_can_format_todays_date
+    assert_instance_of String, @enigma.format_date
+    assert_equal 6, @enigma.format_date.length
     # consider how to use stub here: Date.stubs(:today).returns()
   end
 
   def test_it_can_generate_key_hash
-    enigma = Enigma.new
     key = "06289"
-    assert_instance_of Hash, enigma.generate_key_hash(key)
+    assert_instance_of Hash, @enigma.generate_key_hash(key)
 
     [:A, :B, :C, :D].each do |hash_key|
-      assert_equal true, enigma.generate_key_hash(key).keys.include?(hash_key)
+      assert_equal true, @enigma.generate_key_hash(key).keys.include?(hash_key)
     end
 
-    enigma.generate_key_hash(key).values.each do |enigma_key|
+    @enigma.generate_key_hash(key).values.each do |enigma_key|
       assert_equal 2, enigma_key.length
       assert_equal true, enigma_key.to_i.between?(0, 99)
     end
@@ -32,19 +37,18 @@ class EnigmaTest < Minitest::Test
 
   def test_it_has_an_alphabet_with_a_space
     skip
-    enigma = Enigma.new
-    assert_equal true, enigma.alphabet.include?(" ")
-    assert_equal 27, enigma.alphabet.count
+    assert_equal true, @enigma.alphabet.include?(" ")
+    assert_equal 27, @enigma.alphabet.count
   end
 
   def test_it_can_encrypt_message_w_key_and_date
-    enigma = Enigma.new
+    skip
     encryption_result = {
       encryption: "keder ohulw",
       key: "02715",
       date: "040895"
       }
-    assert_equal encryption_result, enigma.encrypt("hello world", "02715", "040895")
+    assert_equal encryption_result, @enigma.encrypt("hello world", "02715", "040895")
   end
 end
 

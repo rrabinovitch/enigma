@@ -2,12 +2,15 @@ require 'date'
 require_relative 'key'
 
 class Enigma
-  attr_reader :date
+  attr_reader :today
 
   def initialize
-    @date = Date.today.strftime("%d%m") + Date.today.strftime("%Y")[2..3]
-    # eventually separate date into its own class to be able to better test date attribute and formatting
+    @today = Date.today
     # consider whether it's an issue for the date attribute to be defined by the date on which the enigma instance was initialized - do we need more flexibility?
+  end
+
+  def format_date
+    @today.strftime("%d%m") + @today.strftime("%Y")[2..3]
   end
 
   def generate_key_hash(key)
@@ -17,7 +20,7 @@ class Enigma
       D: key.slice(3..4)}
   end
 
-  def encrypt(message, key = Key.abcd_keys, date = @date)
+  def encrypt(message, key = Key.abcd_keys, date = formatted_date)
     # identify A, B, C, and D keys based on key argument value
     key_hash = generate_key_hash(key)
     # identify A, B, C, and D offsets based on date argument value
