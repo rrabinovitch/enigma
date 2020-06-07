@@ -15,7 +15,7 @@ class Enigma
       B: key.slice(1..2),
       C: key.slice(2..3),
       D: key.slice(3..4)}
-end
+  end
 
   def encrypt(message, key = Key.abcd_keys, date = @date)
     # identify A, B, C, and D keys based on key argument value
