@@ -20,6 +20,7 @@ class EnigmaTest < Minitest::Test
     assert_instance_of String, enigma.key
     assert_equal 5, enigma.key.length
     assert_equal true, enigma.key.to_i.between?(0, 99999)
+    # consider stubbing #rand method for additional testing
   end
 
   def test_it_can_encrypt_message_w_key_and_date

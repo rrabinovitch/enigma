@@ -9,7 +9,11 @@ class Enigma
     # consider whether it's an issue for the date attribute to be defined by the date on which the enigma instance was initialized - do we need more flexibility?
   end
 
-  def encrypt(message, key, date = @date)
+  def key
+    '%05d' % rand(99999)
+  end
+
+  def encrypt(message, key = self.key, date = @date)
     # identify A, B, C, and D keys based on key argument value
     # identify A, B, C, and D offsets based on date argument value
     # add keys and offsets to identify A, B, C, and D shifts
