@@ -34,6 +34,7 @@ class Enigma
     key_hash = generate_key_hash(key)
     # identify A, B, C, and D offsets based on date argument value
     offset_hash = generate_offset_hash(date)
+    require "pry"; binding.pry
     # add keys and offsets to identify A, B, C, and D shifts
     a_shift = a_key.to_i + a_offset.to_i
     b_shift = b_key.to_i + b_offset.to_i
