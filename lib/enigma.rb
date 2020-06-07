@@ -14,7 +14,7 @@ class Enigma
   end
 
   def generate_key_hash(key)
-    key_hash = {A: key.slice(0..1),
+    key_hash = {A: key.slice(0..1).to_i,
       B: key.slice(1..2).to_i,
       C: key.slice(2..3).to_i,
       D: key.slice(3..4).to_i}
@@ -23,10 +23,10 @@ class Enigma
   def generate_offset_hash(date)
     sqrd_date = date.to_i ** 2
     offset = sqrd_date.to_s.slice(-4..-1)
-    offset_hash = {A: offset.chars[0],
-      B: offset.chars[1],
-      C: offset.chars[2],
-      D: offset.chars[3]}
+    offset_hash = {A: offset[0],
+      B: offset[1],
+      C: offset[2],
+      D: offset[3]}
   end
 
   def encrypt(message, key = Key.generate, date = formatted_date)
