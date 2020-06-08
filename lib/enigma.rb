@@ -56,12 +56,6 @@ class Enigma
     shift_hash = generate_shift_hash(key_hash, offset_hash)
     # create an array of chars that comprise message argument value
     message_chars = message.chars
-    # create rotated alphabet based on each shift
-            # alphabet_a = @alphabet.rotate(shift_hash[:A])
-            # alphabet_b = @alphabet.rotate(shift_hash[:B])
-            # alphabet_c = @alphabet.rotate(shift_hash[:C])
-            # alphabet_d = @alphabet.rotate(shift_hash[:D])
-      # for each message_chars element, use index location in OG alphabet array to identify replacement character and add replacement character to new string
 
     # OR create hash that has OG alphabet chars as keys and rotated alphabet chars as values
       # for each message_chars element: alphabet_a[message_chars[0]] => returns shifted char, which is then shoveled into encrypted message string
@@ -97,3 +91,11 @@ end
 # alphabet_b = @alphabet.zip(@alphabet.rotate(shift_hash[:B]))
 # alphabet_c = @alphabet.zip(@alphabet.rotate(shift_hash[:C]))
 # alphabet_d = @alphabet.zip(@alphabet.rotate(shift_hash[:D]))
+
+
+# create rotated alphabet based on each shift
+        # alphabet_a = @alphabet.rotate(shift_hash[:A])
+        # alphabet_b = @alphabet.rotate(shift_hash[:B])
+        # alphabet_c = @alphabet.rotate(shift_hash[:C])
+        # alphabet_d = @alphabet.rotate(shift_hash[:D])
+  # for each message_chars element, use index location in OG alphabet array to identify replacement character and add replacement character to new string
