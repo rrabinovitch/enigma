@@ -59,12 +59,8 @@ class CipherTest < Minitest::Test
   end
 
   def test_it_can_shift_text_based_on_alphabet_set
-    skip
-    shifted_alphabets = @cipher.shifted_alphabets(2, 27, 73, 20)
-    chars = "keder".chars
-    @cipher.stubs(:generate_shift_hash).returns({A: 3, B: 27, C: 73, D: 20})
-    # @cipher.stubs(:format_date).returns("040895")
-    # Key.stubs(:generate).returns("02715")
-    assert_equal "keder", @cipher.shift(chars, shifted_alphabets)
+    characters = "hello world".chars
+    shifted_alphabets = @cipher.shifted_alphabets(3, 27, 73, 20)
+    assert_equal "keder ohulw", @cipher.shift(characters, shifted_alphabets)
   end
 end
