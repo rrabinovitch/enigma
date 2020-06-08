@@ -43,11 +43,6 @@ class Enigma
     offset_hash = generate_offset_hash(date)
     # add keys and offsets to identify A, B, C, and D shifts
     shift_hash = generate_shift_hash(key_hash, offset_hash)
-
-    # # a_shift = a_key.to_i + a_offset.to_i
-    # # b_shift = b_key.to_i + b_offset.to_i
-    # # c_shift = c_key.to_i + c_offset.to_i
-    # # d_shift = d_key.to_i + d_offset.to_i
     # acreate an array of chars that comprise message argument value
 
     # iterate through array to apply each shift to its applicable characters
