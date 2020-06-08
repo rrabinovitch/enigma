@@ -93,4 +93,13 @@ class EnigmaTest < Minitest::Test
     Key.stubs(:generate).returns("02715")
     assert_equal encryption_result, @enigma.encrypt("hello world")
   end
+
+  def test_it_can_decrypt_ciphertext_w_key_and_date
+    decryption_result = {
+      decryption: "hello world",
+      key: "02715",
+      date: "040895"
+      }
+    assert_equal decryption_result, @enigma.decrypt("keder ohulw", "02715", "040895")
+  end
 end
