@@ -53,7 +53,7 @@ class Enigma
       D: shift_alphabet(d_shift)}
   end
 
-  def encrypt(message, key = Key.generate, date = formatted_date)
+  def encrypt(message, key = Key.generate, date = format_date)
     key_hash = generate_key_hash(key)
     offset_hash = generate_offset_hash(date)
     shift_hash = generate_shift_hash(key_hash, offset_hash)
