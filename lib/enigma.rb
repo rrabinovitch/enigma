@@ -58,5 +58,10 @@ class Enigma
     # refactoring to work with no key and date args:
       # assign key default value: key = Key.new
       # assign date default value: date = Date.today(strftime...)
+    encryption_result = {
+      encryption: "",
+      key: key,
+      date: date
+      }
   end
 end

@@ -41,7 +41,6 @@ class EnigmaTest < Minitest::Test
   end
 
   def test_it_can_encrypt_message_w_key_and_date
-    skip
     encryption_result = {
       encryption: "keder ohulw",
       key: "02715",
