@@ -94,13 +94,3 @@ class EnigmaTest < Minitest::Test
     assert_equal encryption_result, @enigma.encrypt("hello world")
   end
 end
-
-
-# ### LATER TESTS
-
-# def test_it_can_decrypt_message_w_key_and_no_date
-#   #decrypt a message with a key (uses today's date)
-#   pry(main) > enigma.decrypt(encrypted[:encryption], "02715")
-#   #=> # decryption hash here
-# end
-#
