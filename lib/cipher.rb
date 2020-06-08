@@ -13,6 +13,7 @@ class Cipher
 
   def format_date
     @today.strftime("%d%m") + @today.strftime("%Y")[2..3]
+    # figure out how to utilize just last two digits of %Y - look at ruby docs
   end
 
   def generate_key_hash(key)
