@@ -24,6 +24,8 @@ class CipherTest < Minitest::Test
   def test_it_can_format_todays_date
     assert_instance_of String, @cipher.format_date
     assert_equal 6, @cipher.format_date.length
+    Date.stubs(:today).returns(2715)
+
     # consider how to use stub here: Date.stubs(:today).returns()
   end
 
@@ -56,6 +58,10 @@ class CipherTest < Minitest::Test
   def test_it_can_create_all_shifted_alphabets
     assert_equal 4, @cipher.shifted_alphabets(2, 27, 73, 20).keys.count
     # need more robust assertions
+  end
+
+  def test_character_translater
+    # translates one character at a time
   end
 
   def test_it_can_shift_text_based_on_alphabet_set

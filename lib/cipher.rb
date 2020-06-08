@@ -54,19 +54,16 @@ class Cipher
       D: shift_alphabet(d_shift)}
   end
 
+  def character_translator(char, alphabets, i)
+    translate = {1 => :A, 2 => :B, 3 => :C, 0 => :D}
+    remainder = i % 4
+    alphabets[translate[remainder]][char]
+  end
 
   def shift(text_chars, alphabets)
     text_chars.map.with_index(1) do |char, i|
       if @alphabet.include?(char)
-        if i % 4 == 1
-          alphabets[:A][char]
-        elsif i % 4 == 2
-          alphabets[:B][char]
-        elsif i % 4 == 3
-          alphabets[:C][char]
-        elsif i % 4 == 0
-          alphabets[:D][char]
-        end
+        character_translator(char, alphabets, i)
       else
         char
       end
