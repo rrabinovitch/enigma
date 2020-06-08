@@ -4,8 +4,8 @@ require './lib/key'
 
 class EnigmaTest < Minitest::Test
   def test_it_exits
-    @key = Key.new
-    assert_instance_of Key, @key
+    key = Key.new
+    assert_instance_of Key, key
   end
 
   def test_it_can_generate_key
