@@ -26,3 +26,6 @@ class Enigma < Cipher
     {decryption: decrypted_message, key: key, date: date}
   end
 end
+
+
+# create a setup method that creates key, offset, and shift hashes and splits up the message/ciphertext

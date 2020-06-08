@@ -1,2 +1,5 @@
 coverage
 .DS_Store
+encrypted.txt
+decrypted.txt
+test_message.txt
