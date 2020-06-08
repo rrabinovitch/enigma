@@ -21,4 +21,9 @@ class CipherTest < Minitest::Test
     assert_equal 27, @cipher.alphabet.count
   end
 
+  def test_it_can_format_todays_date
+    assert_instance_of String, @cipher.format_date
+    assert_equal 6, @cipher.format_date.length
+    # consider how to use stub here: Date.stubs(:today).returns()
+  end
 end
