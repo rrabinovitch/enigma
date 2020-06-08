@@ -2,11 +2,12 @@ require 'date'
 require_relative 'key'
 
 class Enigma
-  attr_reader :today
+  attr_reader :today, :alphabet
 
   def initialize
     @today = Date.today
     # consider whether it's an issue for the date attribute to be defined by the date on which the enigma instance was initialized - do we need more flexibility?
+    @alphabet = ("a".."z").to_a << " "
   end
 
   def format_date
@@ -14,7 +15,7 @@ class Enigma
   end
 
   def generate_key_hash(key)
-    key_hash = {A: key.slice(0..1).to_i,
+    {A: key.slice(0..1).to_i,
       B: key.slice(1..2).to_i,
       C: key.slice(2..3).to_i,
       D: key.slice(3..4).to_i}
@@ -23,40 +24,57 @@ class Enigma
   def generate_offset_hash(date)
     sqrd_date = date.to_i ** 2
     offset = sqrd_date.to_s.slice(-4..-1)
-    offset_hash = {A: offset[0].to_i,
+    {A: offset[0].to_i,
       B: offset[1].to_i,
       C: offset[2].to_i,
       D: offset[3].to_i}
   end
 
   def generate_shift_hash(key_hash, offset_hash)
-    shift_hash = {A: key_hash[:A] + offset_hash[:A],
+    {A: key_hash[:A] + offset_hash[:A],
       B: key_hash[:B] + offset_hash[:B],
       C: key_hash[:C] + offset_hash[:C],
       D: key_hash[:D] + offset_hash[:D]}
   end
 
+  def shift_alphabet(shift)
+    i = 0
+    @alphabet.reduce({}) do |shifted_alphabet, char|
+      shifted_alphabet[char] = @alphabet.rotate(shift)[i]
+      i += 1
+      shifted_alphabet
+    end
+  end
+
+  def shifted_alphabets(a_shift, b_shift, c_shift, d_shift)
+    {A: shift_alphabet(a_shift),
+      B: shift_alphabet(b_shift),
+      C: shift_alphabet(c_shift),
+      D: shift_alphabet(d_shift)}
+  end
+
   def encrypt(message, key = Key.generate, date = formatted_date)
-    # identify A, B, C, and D keys based on key argument value
     key_hash = generate_key_hash(key)
-    # identify A, B, C, and D offsets based on date argument value
     offset_hash = generate_offset_hash(date)
-    # add keys and offsets to identify A, B, C, and D shifts
     shift_hash = generate_shift_hash(key_hash, offset_hash)
-    # acreate an array of chars that comprise message argument value
-
-    # iterate through array to apply each shift to its applicable characters
-      # consider #map since the original array is being *transformed*
-      # interation contains a conditional that identifies which shift should be used on each character
-        # if char index == 1, 5, 9, etc ==> use A shift
-        # if char index == 2, 6, 10, etc ==> use B shift
-        # if char index == 3, 7, 11, etc ==> use C shift
-        # if char index == 4, 8, 12, etc OR char index % 4 == 0 ==> use D shift
-      # assign return value to variable called "encryption"
-    # encryption_result = {:encryption => encryption, :key => key, :date => date}
-
-    # refactoring to work with no key and date args:
-      # assign key default value: key = Key.new
-      # assign date default value: date = Date.today(strftime...)
+    shifted_alphabets = shifted_alphabets(shift_hash[:A],
+      shift_hash[:B], shift_hash[:C], shift_hash[:D])
+    message_chars = message.downcase.chars
+    encrypted_message = message_chars.map.with_index(1) do |char, i|
+      if @alphabet.include?(char)
+        if i % 4 == 1
+          shifted_alphabets[:A][char]
+        elsif i % 4 == 2
+          shifted_alphabets[:B][char]
+        elsif i % 4 == 3
+          shifted_alphabets[:C][char]
+        elsif i % 4 == 0
+          shifted_alphabets[:D][char]
+        end
+      else
+        char
+      end
+    end.join
+    {encryption: encrypted_message, key: key, date: date}
   end
 end

@@ -15,6 +15,11 @@ class EnigmaTest < Minitest::Test
     assert_instance_of Date, @enigma.today
   end
 
+  def test_it_has_alphabet_incl_space
+    assert_equal true, @enigma.alphabet.include?(" ")
+    assert_equal 27, @enigma.alphabet.count
+  end
+
   def test_it_can_format_todays_date
     assert_instance_of String, @enigma.format_date
     assert_equal 6, @enigma.format_date.length
@@ -40,23 +45,33 @@ class EnigmaTest < Minitest::Test
     assert_equal shift_hash, @enigma.generate_shift_hash(key_hash, offset_hash)
   end
 
+  def test_it_can_create_shifted_alphabet
+    shifted_alphabet = @enigma.shift_alphabet(3)
+    assert_equal ("a".."z").to_a << " ", shifted_alphabet.keys
+    assert_equal ("a".."z").to_a << " ", shifted_alphabet.values.rotate(-3)
+    # better way to test?
+  end
+
+  def test_it_can_create_all_shifted_alphabets
+    assert_equal 4, @enigma.shifted_alphabets(2, 27, 73, 20).keys.count
+    # need more robust assertions
+  end
+
   def test_it_can_encrypt_message_w_key_and_date
-    skip
-    encryption_result = {
+    encryption_result_1 = {
       encryption: "keder ohulw",
       key: "02715",
       date: "040895"
       }
-    assert_equal encryption_result, @enigma.encrypt("hello world", "02715", "040895")
+    encryption_result_2 = {
+      encryption: "keder ohulw!",
+      key: "02715",
+      date: "040895"
+      }
+    assert_equal encryption_result_1, @enigma.encrypt("hello world", "02715", "040895")
+    assert_equal encryption_result_2, @enigma.encrypt("Hello World!", "02715", "040895")
   end
 end
-
-#
-# def test_it_has_an_alphabet_with_a_space
-#   skip
-#   assert_equal true, @enigma.alphabet.include?(" ")
-#   assert_equal 27, @enigma.alphabet.count
-# end
 
 
 # ### LATER TESTS
