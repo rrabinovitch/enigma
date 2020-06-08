@@ -45,6 +45,13 @@ class EnigmaTest < Minitest::Test
     assert_equal shift_hash, @enigma.generate_shift_hash(key_hash, offset_hash)
   end
 
+  def test_it_can_create_shifted_alphabet
+    a_shift_alphabet = @enigma.shift_alphabet(3)
+    assert_equal ("a".."z").to_a << " ", a_shift_alphabet.keys
+    assert_equal ("a".."z").to_a << " ", a_shift_alphabet.values.rotate(-3)
+    # better way to test?
+  end
+
   def test_it_can_encrypt_message_w_key_and_date
     skip
     encryption_result = {
