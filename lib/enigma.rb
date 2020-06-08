@@ -2,6 +2,8 @@ require_relative 'cipher'
 require_relative 'key'
 
 class Enigma < Cipher
+  # is it necessary to define initialize and call super?
+
   def encrypt(message, key = Key.generate, date = format_date)
     key_hash = generate_key_hash(key)
     offset_hash = generate_offset_hash(date)
@@ -9,21 +11,7 @@ class Enigma < Cipher
     shifted_alphabets = shifted_alphabets(shift_hash[:A],
       shift_hash[:B], shift_hash[:C], shift_hash[:D])
     message_chars = message.downcase.chars
-    encrypted_message = message_chars.map.with_index(1) do |char, i|
-      if @alphabet.include?(char)
-        if i % 4 == 1
-          shifted_alphabets[:A][char]
-        elsif i % 4 == 2
-          shifted_alphabets[:B][char]
-        elsif i % 4 == 3
-          shifted_alphabets[:C][char]
-        elsif i % 4 == 0
-          shifted_alphabets[:D][char]
-        end
-      else
-        char
-      end
-    end.join
+    encrypted_message = shift(message_chars, shifted_alphabets)
     {encryption: encrypted_message, key: key, date: date}
   end
 
@@ -34,21 +22,7 @@ class Enigma < Cipher
     unshifted_alphabets = shifted_alphabets(-(shift_hash[:A]),
       -(shift_hash[:B]), -(shift_hash[:C]), -(shift_hash[:D]))
     ciphertext_chars = ciphertext.downcase.chars
-    decrypted_message = ciphertext_chars.map.with_index(1) do |char, i|
-      if @alphabet.include?(char)
-        if i % 4 == 1
-          unshifted_alphabets[:A][char]
-        elsif i % 4 == 2
-          unshifted_alphabets[:B][char]
-        elsif i % 4 == 3
-          unshifted_alphabets[:C][char]
-        elsif i % 4 == 0
-          unshifted_alphabets[:D][char]
-        end
-      else
-        char
-      end
-    end.join
+    decrypted_message = shift(ciphertext_chars, unshifted_alphabets)
     {decryption: decrypted_message, key: key, date: date}
   end
 end

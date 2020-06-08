@@ -51,4 +51,23 @@ class Cipher
       C: shift_alphabet(c_shift),
       D: shift_alphabet(d_shift)}
   end
+
+
+  def shift(text_chars, alphabets)
+    text_chars.map.with_index(1) do |char, i|
+      if @alphabet.include?(char)
+        if i % 4 == 1
+          alphabets[:A][char]
+        elsif i % 4 == 2
+          alphabets[:B][char]
+        elsif i % 4 == 3
+          alphabets[:C][char]
+        elsif i % 4 == 0
+          alphabets[:D][char]
+        end
+      else
+        char
+      end
+    end.join
+  end
 end
