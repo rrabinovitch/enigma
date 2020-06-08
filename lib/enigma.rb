@@ -1,11 +1,8 @@
+require_relative 'cipher'
 require_relative 'key'
 
-class Enigma
+class Enigma < Cipher
   attr_reader :alphabet
-
-  def initialize
-    @alphabet = ("a".."z").to_a << " "
-  end
 
   def format_date
     @today.strftime("%d%m") + @today.strftime("%Y")[2..3]
