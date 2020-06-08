@@ -1,10 +1,21 @@
-# Additionally, you should create a Runner file called
-# decrypt.rb that takes four command line arguments. The
-# first is an existing file that contains an encrypted
-# message. The second is a file where your program should
-# write the decrypted message. The third is the key to be
-# used for decryption. The fourth is the date to be used
-# for decryption. In addition to writing the decrypted
-# message to the file, your program should output to
-# the screen the file it wrote to, the key used for
-# decryption, and the date used for decryption.
+require_relative 'enigma'
+
+enigma = Enigma.new
+
+handle = File.open(ARGV[0], "r")
+ciphertext = handle.read
+handle.close
+
+if ARGV[2] && ARGV[3]
+  decrypted_message = enigma.decrypt(ciphertext, ARGV[2], ARGV[3])
+elsif !ARGV[2].nil? && ARGV[4].nil?
+  decrypted_message = enigma.decrypt(ciphertext, ARGV[2])
+else
+  decrypted_message = enigma.decrypt(ciphertext)
+end
+
+writer = File.open(ARGV[1], "w")
+writer.write(decrypted_message)
+writer.close
+
+puts "Created '#{ARGV[1]}' with the key #{decrypted_message[:key]} and date #{decrypted_message[:date]}"
