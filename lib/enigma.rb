@@ -63,13 +63,13 @@ class Enigma
     encrypted_message = message_chars.map.with_index(1) do |char, i|
       if @alphabet.include?(char)
         if i % 4 == 1
-          shifted_alphabets[:A][char] # alphabet_a[char]
+          shifted_alphabets[:A][char]
         elsif i % 4 == 2
-          shifted_alphabets[:B][char] # alphabet_b[char]
+          shifted_alphabets[:B][char]
         elsif i % 4 == 3
-          shifted_alphabets[:C][char] # alphabet_c[char]
+          shifted_alphabets[:C][char]
         elsif i % 4 == 0
-          shifted_alphabets[:D][char] # alphabet_d[char]
+          shifted_alphabets[:D][char]
         end
       else
         char

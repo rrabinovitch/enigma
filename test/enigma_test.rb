@@ -46,14 +46,15 @@ class EnigmaTest < Minitest::Test
   end
 
   def test_it_can_create_shifted_alphabet
-    a_shift_alphabet = @enigma.shift_alphabet(3)
-    assert_equal ("a".."z").to_a << " ", a_shift_alphabet.keys
-    assert_equal ("a".."z").to_a << " ", a_shift_alphabet.values.rotate(-3)
+    shifted_alphabet = @enigma.shift_alphabet(3)
+    assert_equal ("a".."z").to_a << " ", shifted_alphabet.keys
+    assert_equal ("a".."z").to_a << " ", shifted_alphabet.values.rotate(-3)
     # better way to test?
   end
 
   def test_it_can_create_all_shifted_alphabets
-
+    assert_equal 4, @enigma.shifted_alphabets(2, 27, 73, 20).keys.count
+    # need more robust assertions
   end
 
   def test_it_can_encrypt_message_w_key_and_date
