@@ -26,4 +26,35 @@ class CipherTest < Minitest::Test
     assert_equal 6, @cipher.format_date.length
     # consider how to use stub here: Date.stubs(:today).returns()
   end
+
+  def test_it_can_generate_key_hash
+    key = "02715"
+    key_hash = {:A=>2, :B=>27, :C=>71, :D=>15}
+    assert_equal key_hash, @cipher.generate_key_hash(key)
+  end
+
+  def test_it_can_generate_offset_hash
+    date = "040895"
+    offset_hash = {:A=>1, :B=>0, :C=>2, :D=>5}
+    assert_equal offset_hash, @cipher.generate_offset_hash(date)
+  end
+
+  def test_it_can_generate_shift_hash
+    key_hash = {:A=>2, :B=>27, :C=>71, :D=>15}
+    offset_hash = {:A=>1, :B=>0, :C=>2, :D=>5}
+    shift_hash = {A: 3, B: 27, C: 73, D: 20}
+    assert_equal shift_hash, @cipher.generate_shift_hash(key_hash, offset_hash)
+  end
+
+  def test_it_can_create_shifted_alphabet
+    shifted_alphabet = @cipher.shift_alphabet(3)
+    assert_equal ("a".."z").to_a << " ", shifted_alphabet.keys
+    assert_equal ("a".."z").to_a << " ", shifted_alphabet.values.rotate(-3)
+    # better way to test?
+  end
+
+  def test_it_can_create_all_shifted_alphabets
+    assert_equal 4, @cipher.shifted_alphabets(2, 27, 73, 20).keys.count
+    # need more robust assertions
+  end
 end
