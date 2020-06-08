@@ -54,15 +54,34 @@ class Enigma
     offset_hash = generate_offset_hash(date)
     # add keys and offsets to identify A, B, C, and D shifts
     shift_hash = generate_shift_hash(key_hash, offset_hash)
+    # create hash that has OG alphabet chars as keys and rotated alphabet chars as values
+    alphabet_a = shift_alphabet(shift_hash[:A])
+    alphabet_b = shift_alphabet(shift_hash[:B])
+    alphabet_c = shift_alphabet(shift_hash[:C])
+    alphabet_d = shift_alphabet(shift_hash[:D])
     # create an array of chars that comprise message argument value
     message_chars = message.chars
-
-    # OR create hash that has OG alphabet chars as keys and rotated alphabet chars as values
-      # for each message_chars element: alphabet_a[message_chars[0]] => returns shifted char, which is then shoveled into encrypted message string
-
-
-    # require "pry"; binding.pry
-
+    # for each message_chars element: alphabet_a[message_chars[0]] => returns shifted char, which is then shoveled into encrypted message string
+    encrypted_message = message_chars.map.with_index(1) do |char, i|
+      if @alphabet.include?(char)
+        if [1, 5, 9].include?(i)
+          # replace char w a_shift replacement
+          alphabet_a[char]
+        elsif [2, 6, 10].include?(i)
+          # replace char w b_shift replacement
+          alphabet_b[char]
+        elsif [3, 7, 11].include?(i)
+          # replace char w c_shift replacement
+          alphabet_c[char]
+        elsif [4, 8, 12].include?(i)
+          # replace char w d_shift replacement
+          alphabet_d[char]
+        end
+      else
+        char
+      end
+    end.join
+    require "pry"; binding.pry
 
     # iterate through array to apply each shift to its applicable characters
       # consider #map since the original array is being *transformed*
@@ -72,13 +91,10 @@ class Enigma
         # if char index == 3, 7, 11, etc ==> use C shift
         # if char index == 4, 8, 12, etc OR char index % 4 == 0 ==> use D shift
       # assign return value to variable called "encryption"
-    # encryption_result = {:encryption => encryption, :key => key, :date => date}
 
-    # refactoring to work with no key and date args:
-      # assign key default value: key = Key.new
-      # assign date default value: date = Date.today(strftime...)
+    # return encryption_result = {:encryption => encryption, :key => key, :date => date}
     encryption_result = {
-      encryption: "",
+      encryption: encrypted_message,
       key: key,
       date: date
       }
