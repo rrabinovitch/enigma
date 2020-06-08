@@ -57,11 +57,8 @@ class Enigma
     key_hash = generate_key_hash(key)
     offset_hash = generate_offset_hash(date)
     shift_hash = generate_shift_hash(key_hash, offset_hash)
-    shifted_alphabets = shifted_alphabets(shift_hash[:A], shift_hash[:B], shift_hash[:C], shift_hash[:D])
-    # alphabet_a = shift_alphabet(shift_hash[:A])
-    # alphabet_b = shift_alphabet(shift_hash[:B])
-    # alphabet_c = shift_alphabet(shift_hash[:C])
-    # alphabet_d = shift_alphabet(shift_hash[:D])
+    shifted_alphabets = shifted_alphabets(shift_hash[:A],
+      shift_hash[:B], shift_hash[:C], shift_hash[:D])
     message_chars = message.downcase.chars
     encrypted_message = message_chars.map.with_index(1) do |char, i|
       if @alphabet.include?(char)

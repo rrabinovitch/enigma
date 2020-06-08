@@ -52,6 +52,10 @@ class EnigmaTest < Minitest::Test
     # better way to test?
   end
 
+  def test_it_can_create_all_shifted_alphabets
+
+  end
+
   def test_it_can_encrypt_message_w_key_and_date
     encryption_result_1 = {
       encryption: "keder ohulw",
