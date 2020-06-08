@@ -1,3 +1,4 @@
+
 # Add a command line interface for encryption and decryption.
 # You should create a Runner file called encrypt.rb that takes
 # two command line arguments. The first is an existing file
