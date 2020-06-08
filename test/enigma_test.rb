@@ -1,7 +1,7 @@
+require './test/setup'
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/enigma'
-require 'mocha/minitest'
 
 class EnigmaTest < Minitest::Test
   def setup
