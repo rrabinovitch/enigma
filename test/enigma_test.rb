@@ -53,13 +53,18 @@ class EnigmaTest < Minitest::Test
   end
 
   def test_it_can_encrypt_message_w_key_and_date
-    skip
-    encryption_result = {
+    encryption_result_1 = {
       encryption: "keder ohulw",
       key: "02715",
       date: "040895"
       }
-    assert_equal encryption_result, @enigma.encrypt("hello world", "02715", "040895")
+    encryption_result_2 = {
+      encryption: "keder ohulw!",
+      key: "02715",
+      date: "040895"
+      }
+    assert_equal encryption_result_1, @enigma.encrypt("hello world", "02715", "040895")
+    assert_equal encryption_result_2, @enigma.encrypt("Hello World!", "02715", "040895")
   end
 end
 
