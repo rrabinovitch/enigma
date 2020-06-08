@@ -15,6 +15,11 @@ class EnigmaTest < Minitest::Test
     assert_instance_of Date, @enigma.today
   end
 
+  def test_it_has_alphabet_incl_space
+    assert_equal true, @enigma.alphabet.include?(" ")
+    assert_equal 27, @enigma.alphabet.count
+  end
+
   def test_it_can_format_todays_date
     assert_instance_of String, @enigma.format_date
     assert_equal 6, @enigma.format_date.length
@@ -41,6 +46,7 @@ class EnigmaTest < Minitest::Test
   end
 
   def test_it_can_encrypt_message_w_key_and_date
+    skip
     encryption_result = {
       encryption: "keder ohulw",
       key: "02715",
@@ -49,13 +55,6 @@ class EnigmaTest < Minitest::Test
     assert_equal encryption_result, @enigma.encrypt("hello world", "02715", "040895")
   end
 end
-
-#
-# def test_it_has_an_alphabet_with_a_space
-#   skip
-#   assert_equal true, @enigma.alphabet.include?(" ")
-#   assert_equal 27, @enigma.alphabet.count
-# end
 
 
 # ### LATER TESTS
