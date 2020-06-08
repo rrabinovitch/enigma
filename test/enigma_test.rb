@@ -79,9 +79,19 @@ class EnigmaTest < Minitest::Test
       key: "02715",
       date: "040895"
       }
-      @enigma.stubs(:format_date).returns("040895")
+    @enigma.stubs(:format_date).returns("040895")
+    assert_equal encryption_result, @enigma.encrypt("hello world", "02715")
+  end
 
-      assert_equal encryption_result, @enigma.encrypt("hello world", "02715")
+  def test_it_can_encrypt_message_w_no_key_and_no_date
+    encryption_result = {
+      encryption: "keder ohulw",
+      key: "02715",
+      date: "040895"
+      }
+    @enigma.stubs(:format_date).returns("040895")
+    Key.stubs(:generate).returns("02715")
+    assert_equal encryption_result, @enigma.encrypt("hello world")
   end
 end
 
@@ -94,8 +104,3 @@ end
 #   #=> # decryption hash here
 # end
 #
-# def test_it_can_encrypt_message_w_no_key_and_no_date
-#   # encrypt a message (generates random key and uses today's date)
-#   pry(main)> enigma.encrypt("hello world")
-#   #=> # encryption hash here
-# end
