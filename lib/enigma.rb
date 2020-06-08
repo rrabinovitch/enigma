@@ -37,6 +37,16 @@ class Enigma
       D: key_hash[:D] + offset_hash[:D]}
   end
 
+  def shift_alphabet(shift)
+    i = 0
+    shifted_alphabet = @alphabet.reduce({}) do |shifted_alphabet, char|
+      shifted_alphabet[char] = @alphabet.rotate(shift)[i]
+      i += 1
+      shifted_alphabet
+    end
+    shifted_alphabet
+  end
+
   def encrypt(message, key = Key.generate, date = formatted_date)
     # identify A, B, C, and D keys based on key argument value
     key_hash = generate_key_hash(key)
@@ -44,7 +54,21 @@ class Enigma
     offset_hash = generate_offset_hash(date)
     # add keys and offsets to identify A, B, C, and D shifts
     shift_hash = generate_shift_hash(key_hash, offset_hash)
-    # acreate an array of chars that comprise message argument value
+    # create an array of chars that comprise message argument value
+    message_chars = message.chars
+    # create rotated alphabet based on each shift
+            # alphabet_a = @alphabet.rotate(shift_hash[:A])
+            # alphabet_b = @alphabet.rotate(shift_hash[:B])
+            # alphabet_c = @alphabet.rotate(shift_hash[:C])
+            # alphabet_d = @alphabet.rotate(shift_hash[:D])
+      # for each message_chars element, use index location in OG alphabet array to identify replacement character and add replacement character to new string
+
+    # OR create hash that has OG alphabet chars as keys and rotated alphabet chars as values
+      # for each message_chars element: alphabet_a[message_chars[0]] => returns shifted char, which is then shoveled into encrypted message string
+
+
+    # require "pry"; binding.pry
+
 
     # iterate through array to apply each shift to its applicable characters
       # consider #map since the original array is being *transformed*
@@ -66,3 +90,10 @@ class Enigma
       }
   end
 end
+
+
+
+# alphabet_a = @alphabet.zip(@alphabet.rotate(shift_hash[:A]))
+# alphabet_b = @alphabet.zip(@alphabet.rotate(shift_hash[:B]))
+# alphabet_c = @alphabet.zip(@alphabet.rotate(shift_hash[:C]))
+# alphabet_d = @alphabet.zip(@alphabet.rotate(shift_hash[:D]))
