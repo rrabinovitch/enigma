@@ -6,10 +6,10 @@ handle = File.open(ARGV[0], "r")
 message = handle.read
 handle.close
 
-if !ARGV[3].nil? && !ARGV[4].nil?
-  encrypted_message = enigma.encrypt(message, ARGV[3], ARGV[4])
-elsif !ARGV[3].nil? && ARGV[4].nil?
-  encrypted_message = enigma.encrypt(message, ARGV[3])
+if ARGV[2] && ARGV[3]
+  encrypted_message = enigma.encrypt(message, ARGV[2], ARGV[3])
+elsif !ARGV[2].nil? && ARGV[4].nil?
+  encrypted_message = enigma.encrypt(message, ARGV[2])
 else
   encrypted_message = enigma.encrypt(message)
 end
