@@ -13,3 +13,7 @@ elsif !ARGV[3].nil? && ARGV[4].nil?
 else
   encrypted_message = enigma.encrypt(incoming_text)
 end
+
+writer = File.open(ARGV[1], "w")
+writer.write(encrypted_message)
+writer.close
