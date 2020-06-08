@@ -7,6 +7,8 @@ class Cipher
     @today = Date.today
     # consider whether it's an issue for the date attribute to be defined by the date on which the enigma instance was initialized - do we need more flexibility?
     @alphabet = ("a".."z").to_a << " "
+    # consider having Cipher alphabet be more flexible bc a cipher's alphabet doesn't have to be this, but enigma's does
+      # maybe by passing initialize arg w alphabet info and calling super in Enigma initialize
   end
 
   def format_date
