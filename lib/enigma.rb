@@ -23,10 +23,17 @@ class Enigma
   def generate_offset_hash(date)
     sqrd_date = date.to_i ** 2
     offset = sqrd_date.to_s.slice(-4..-1)
-    offset_hash = {A: offset[0],
-      B: offset[1],
-      C: offset[2],
-      D: offset[3]}
+    offset_hash = {A: offset[0].to_i,
+      B: offset[1].to_i,
+      C: offset[2].to_i,
+      D: offset[3].to_i}
+  end
+
+  def generate_shift_hash(key_hash, offset_hash)
+    shift_hash = {A: key_hash[:A] + offset_hash[:A],
+      B: key_hash[:B] + offset_hash[:B],
+      C: key_hash[:C] + offset_hash[:C],
+      D: key_hash[:D] + offset_hash[:D]}
   end
 
   def encrypt(message, key = Key.generate, date = formatted_date)
@@ -34,13 +41,9 @@ class Enigma
     key_hash = generate_key_hash(key)
     # identify A, B, C, and D offsets based on date argument value
     offset_hash = generate_offset_hash(date)
-    require "pry"; binding.pry
     # add keys and offsets to identify A, B, C, and D shifts
-    a_shift = a_key.to_i + a_offset.to_i
-    b_shift = b_key.to_i + b_offset.to_i
-    c_shift = c_key.to_i + c_offset.to_i
-    d_shift = d_key.to_i + d_offset.to_i
-    # create an array of chars that comprise message argument value
+    shift_hash = generate_shift_hash(key_hash, offset_hash)
+    # acreate an array of chars that comprise message argument value
 
     # iterate through array to apply each shift to its applicable characters
       # consider #map since the original array is being *transformed*

@@ -22,21 +22,22 @@ class EnigmaTest < Minitest::Test
   end
 
   def test_it_can_generate_key_hash
-    key = "06289" # refactor to use stub eventually?
-    key_hash = {:A=>6, :B=>62, :C=>28, :D=>89}
+    key = "02715"
+    key_hash = {:A=>2, :B=>27, :C=>71, :D=>15}
     assert_equal key_hash, @enigma.generate_key_hash(key)
   end
 
-  def test_it_has_an_alphabet_with_a_space
-    skip
-    assert_equal true, @enigma.alphabet.include?(" ")
-    assert_equal 27, @enigma.alphabet.count
+  def test_it_can_generate_offset_hash
+    date = "040895"
+    offset_hash = {:A=>1, :B=>0, :C=>2, :D=>5}
+    assert_equal offset_hash, @enigma.generate_offset_hash(date)
   end
 
-  def test_it_can_generate_offset_hash
-    date = "070620"
-    offset_hash = {:A=>"4", :B=>"4", :C=>"0", :D=>"0"}
-    assert_equal offset_hash, @enigma.generate_offset_hash(date)
+  def test_it_can_generate_shift_hash
+    key_hash = {:A=>2, :B=>27, :C=>71, :D=>15}
+    offset_hash = {:A=>1, :B=>0, :C=>2, :D=>5}
+    shift_hash = {A: 3, B: 27, C: 73, D: 20}
+    assert_equal shift_hash, @enigma.generate_shift_hash(key_hash, offset_hash)
   end
 
   def test_it_can_encrypt_message_w_key_and_date
@@ -49,6 +50,13 @@ class EnigmaTest < Minitest::Test
     assert_equal encryption_result, @enigma.encrypt("hello world", "02715", "040895")
   end
 end
+
+#
+# def test_it_has_an_alphabet_with_a_space
+#   skip
+#   assert_equal true, @enigma.alphabet.include?(" ")
+#   assert_equal 27, @enigma.alphabet.count
+# end
 
 
 # ### LATER TESTS
