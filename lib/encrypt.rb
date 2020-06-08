@@ -7,11 +7,11 @@ message = handle.read
 handle.close
 
 if !ARGV[3].nil? && !ARGV[4].nil?
-  encrypted_message = enigma.encrypt(incoming_text, ARGV[3], ARGV[4])
+  encrypted_message = enigma.encrypt(message, ARGV[3], ARGV[4])
 elsif !ARGV[3].nil? && ARGV[4].nil?
-  encrypted_message = enigma.encrypt(incoming_text, ARGV[3])
+  encrypted_message = enigma.encrypt(message, ARGV[3])
 else
-  encrypted_message = enigma.encrypt(incoming_text)
+  encrypted_message = enigma.encrypt(message)
 end
 
 writer = File.open(ARGV[1], "w")
