@@ -22,11 +22,11 @@ class CipherTest < Minitest::Test
   end
 
   def test_it_can_format_todays_date
+    skip
     assert_instance_of String, @cipher.format_date
     assert_equal 6, @cipher.format_date.length
-    Date.stubs(:today).returns(2715)
-
-    # consider how to use stub here: Date.stubs(:today).returns()
+    @cipher.stubs(:today).returns(Date.new(1995, 8, 4))
+    assert_equal "040895", @cipher.format_date
   end
 
   def test_it_can_generate_key_hash
