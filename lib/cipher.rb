@@ -54,7 +54,7 @@ class Cipher
   def character_translator(char, alphabets, i)
     translate = {1 => :A, 2 => :B, 3 => :C, 0 => :D}
     remainder = i % 4
-    new = alphabets[translate[remainder]][char]
+    alphabets[translate[remainder]][char]
   end
 
   def shift(text_chars, alphabets)

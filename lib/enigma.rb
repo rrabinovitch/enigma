@@ -2,12 +2,14 @@ require_relative 'cipher'
 require_relative 'key'
 
 class Enigma < Cipher
-  # is it necessary to define initialize and call super?
-
-  def encrypt(message, key = Key.generate, date = format_date)
+  def enigma_setup(key, date)
     key_hash = generate_key_hash(key)
     offset_hash = generate_offset_hash(date)
-    shift_hash = generate_shift_hash(key_hash, offset_hash)
+    generate_shift_hash(key_hash, offset_hash)
+  end
+
+  def encrypt(message, key = Key.generate, date = format_date)
+    shift_hash = enigma_setup(key, date)
     shifted_alphabets = shifted_alphabets(shift_hash[:A],
       shift_hash[:B], shift_hash[:C], shift_hash[:D])
     message_chars = message.downcase.chars
@@ -16,9 +18,7 @@ class Enigma < Cipher
   end
 
   def decrypt(ciphertext, key, date = format_date)
-    key_hash = generate_key_hash(key)
-    offset_hash = generate_offset_hash(date)
-    shift_hash = generate_shift_hash(key_hash, offset_hash)
+    shift_hash = enigma_setup(key, date)
     unshifted_alphabets = shifted_alphabets(-(shift_hash[:A]),
       -(shift_hash[:B]), -(shift_hash[:C]), -(shift_hash[:D]))
     ciphertext_chars = ciphertext.downcase.chars
@@ -26,6 +26,3 @@ class Enigma < Cipher
     {decryption: decrypted_message, key: key, date: date}
   end
 end
-
-
-# create a setup method that creates key, offset, and shift hashes and splits up the message/ciphertext
