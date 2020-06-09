@@ -55,8 +55,13 @@ class CipherTest < Minitest::Test
   end
 
   def test_it_can_create_all_shifted_alphabets
+    assert_instance_of Hash, @cipher.shifted_alphabets(2, 27, 73, 20)
     assert_equal 4, @cipher.shifted_alphabets(2, 27, 73, 20).keys.count
-    # need more robust assertions
+    @cipher.shifted_alphabets(2, 27, 73, 20).each do |shift_type, shifted_alphabet|
+      (("a".."z").to_a << " ").each do |char|
+        assert_equal true, shifted_alphabet.values.include?(char)
+      end
+    end
   end
 
   def test_character_translater
