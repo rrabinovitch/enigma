@@ -51,8 +51,7 @@ class EnigmaTest < Minitest::Test
   def test_it_can_create_shifted_alphabet
     shifted_alphabet = @enigma.shift_alphabet(3)
     assert_equal ("a".."z").to_a << " ", shifted_alphabet.keys
-    assert_equal ("a".."z").to_a << " ", shifted_alphabet.values.rotate(-3)
-    # better way to test?
+    assert_equal (("a".."z").to_a << " ").rotate(3), shifted_alphabet.values
   end
 
   def test_it_can_create_all_shifted_alphabets
