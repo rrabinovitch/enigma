@@ -24,7 +24,8 @@ class EnigmaTest < Minitest::Test
   def test_it_can_format_todays_date
     assert_instance_of String, @enigma.format_date
     assert_equal 6, @enigma.format_date.length
-    # consider how to use stub here: Date.stubs(:today).returns()
+    # @enigma.stubs(:today).returns(Date.new(1995, 8, 4))
+    # assert_equal "040895", @enigma.format_date
   end
 
   def test_it_can_generate_key_hash
@@ -49,13 +50,39 @@ class EnigmaTest < Minitest::Test
   def test_it_can_create_shifted_alphabet
     shifted_alphabet = @enigma.shift_alphabet(3)
     assert_equal ("a".."z").to_a << " ", shifted_alphabet.keys
-    assert_equal ("a".."z").to_a << " ", shifted_alphabet.values.rotate(-3)
-    # better way to test?
+    assert_equal (("a".."z").to_a << " ").rotate(3), shifted_alphabet.values
   end
 
   def test_it_can_create_all_shifted_alphabets
     assert_equal 4, @enigma.shifted_alphabets(2, 27, 73, 20).keys.count
-    # need more robust assertions
+    assert_instance_of Hash, @enigma.shifted_alphabets(2, 27, 73, 20)
+    assert_equal 4, @enigma.shifted_alphabets(2, 27, 73, 20).keys.count
+    @enigma.shifted_alphabets(2, 27, 73, 20).each do |shift_type, shifted_alphabet|
+      (("a".."z").to_a << " ").each do |char|
+        assert_equal true, shifted_alphabet.values.include?(char)
+      end
+    end
+  end
+
+  def test_it_can_translate_character
+    shifted_alphabets = @enigma.shifted_alphabets(3, 27, 73, 20)
+    assert_equal "k", @enigma.character_translator("h", shifted_alphabets, 1)
+    assert_equal "e", @enigma.character_translator("e", shifted_alphabets, 2)
+    assert_equal "d", @enigma.character_translator("l", shifted_alphabets, 3)
+    assert_equal "e", @enigma.character_translator("l", shifted_alphabets, 4)
+  end
+
+  def test_it_can_shift_text_based_on_alphabet_set
+    characters = "hello world".chars
+    shifted_alphabets = @enigma.shifted_alphabets(3, 27, 73, 20)
+    assert_equal "keder ohulw", @enigma.shift(characters, shifted_alphabets)
+  end
+
+  def test_it_can_generate_enigma_setup
+    key = "02715"
+    date = "040895"
+    shift_hash = {A: 3, B: 27, C: 73, D: 20}
+    assert_equal shift_hash, @enigma.enigma_setup(key, date)
   end
 
   def test_it_can_encrypt_message_w_key_and_date

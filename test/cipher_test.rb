@@ -24,7 +24,8 @@ class CipherTest < Minitest::Test
   def test_it_can_format_todays_date
     assert_instance_of String, @cipher.format_date
     assert_equal 6, @cipher.format_date.length
-    # consider how to use stub here: Date.stubs(:today).returns()
+    # @cipher.stubs(:today).returns(Date.new(1995, 8, 4))
+    # assert_equal "040895", @cipher.format_date
   end
 
   def test_it_can_generate_key_hash
@@ -49,22 +50,30 @@ class CipherTest < Minitest::Test
   def test_it_can_create_shifted_alphabet
     shifted_alphabet = @cipher.shift_alphabet(3)
     assert_equal ("a".."z").to_a << " ", shifted_alphabet.keys
-    assert_equal ("a".."z").to_a << " ", shifted_alphabet.values.rotate(-3)
-    # better way to test?
+    assert_equal (("a".."z").to_a << " ").rotate(3), shifted_alphabet.values
   end
 
   def test_it_can_create_all_shifted_alphabets
-    assert_equal 4, @cipher.shifted_alphabets(2, 27, 73, 20).keys.count
-    # need more robust assertions
+    assert_instance_of Hash, @cipher.shifted_alphabets(3, 27, 73, 20)
+    assert_equal 4, @cipher.shifted_alphabets(3, 27, 73, 20).keys.count
+    @cipher.shifted_alphabets(3, 27, 73, 20).each do |shift_type, shifted_alphabet|
+      (("a".."z").to_a << " ").each do |char|
+        assert_equal true, shifted_alphabet.values.include?(char)
+      end
+    end
+  end
+
+  def test_it_can_translate_character
+    shifted_alphabets = @cipher.shifted_alphabets(3, 27, 73, 20)
+    assert_equal "k", @cipher.character_translator("h", shifted_alphabets, 1)
+    assert_equal "e", @cipher.character_translator("e", shifted_alphabets, 2)
+    assert_equal "d", @cipher.character_translator("l", shifted_alphabets, 3)
+    assert_equal "e", @cipher.character_translator("l", shifted_alphabets, 4)
   end
 
   def test_it_can_shift_text_based_on_alphabet_set
-    skip
-    shifted_alphabets = @cipher.shifted_alphabets(2, 27, 73, 20)
-    chars = "keder".chars
-    @cipher.stubs(:generate_shift_hash).returns({A: 3, B: 27, C: 73, D: 20})
-    # @cipher.stubs(:format_date).returns("040895")
-    # Key.stubs(:generate).returns("02715")
-    assert_equal "keder", @cipher.shift(chars, shifted_alphabets)
+    characters = "hello world".chars
+    shifted_alphabets = @cipher.shifted_alphabets(3, 27, 73, 20)
+    assert_equal "keder ohulw", @cipher.shift(characters, shifted_alphabets)
   end
 end
