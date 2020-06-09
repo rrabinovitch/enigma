@@ -22,10 +22,11 @@ class EnigmaTest < Minitest::Test
   end
 
   def test_it_can_format_todays_date
-    assert_instance_of String, @enigma.format_date
-    assert_equal 6, @enigma.format_date.length
-    # @enigma.stubs(:today).returns(Date.new(1995, 8, 4))
-    # assert_equal "040895", @enigma.format_date
+    Date.stubs(:today).returns(Date.new(1995, 8, 4))
+    enigma = Enigma.new
+    assert_instance_of String, enigma.format_date
+    assert_equal 6, enigma.format_date.length
+    assert_equal "040895", enigma.format_date
   end
 
   def test_it_can_generate_key_hash
