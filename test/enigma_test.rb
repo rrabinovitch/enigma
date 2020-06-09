@@ -62,7 +62,22 @@ class EnigmaTest < Minitest::Test
       (("a".."z").to_a << " ").each do |char|
         assert_equal true, shifted_alphabet.values.include?(char)
       end
-    end  end
+    end
+  end
+
+  def test_it_can_translate_character
+    shifted_alphabets = @enigma.shifted_alphabets(3, 27, 73, 20)
+    assert_equal "k", @enigma.character_translator("h", shifted_alphabets, 1)
+    assert_equal "e", @enigma.character_translator("e", shifted_alphabets, 2)
+    assert_equal "d", @enigma.character_translator("l", shifted_alphabets, 3)
+    assert_equal "e", @enigma.character_translator("l", shifted_alphabets, 4)
+  end
+
+  def test_it_can_shift_text_based_on_alphabet_set
+    characters = "hello world".chars
+    shifted_alphabets = @enigma.shifted_alphabets(3, 27, 73, 20)
+    assert_equal "keder ohulw", @enigma.shift(characters, shifted_alphabets)
+  end
 
   def test_it_can_encrypt_message_w_key_and_date
     encryption_result_1 = {

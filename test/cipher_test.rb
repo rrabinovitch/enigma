@@ -55,17 +55,21 @@ class CipherTest < Minitest::Test
   end
 
   def test_it_can_create_all_shifted_alphabets
-    assert_instance_of Hash, @cipher.shifted_alphabets(2, 27, 73, 20)
-    assert_equal 4, @cipher.shifted_alphabets(2, 27, 73, 20).keys.count
-    @cipher.shifted_alphabets(2, 27, 73, 20).each do |shift_type, shifted_alphabet|
+    assert_instance_of Hash, @cipher.shifted_alphabets(3, 27, 73, 20)
+    assert_equal 4, @cipher.shifted_alphabets(3, 27, 73, 20).keys.count
+    @cipher.shifted_alphabets(3, 27, 73, 20).each do |shift_type, shifted_alphabet|
       (("a".."z").to_a << " ").each do |char|
         assert_equal true, shifted_alphabet.values.include?(char)
       end
     end
   end
 
-  def test_character_translater
-    # translates one character at a time
+  def test_it_can_translate_character
+    shifted_alphabets = @cipher.shifted_alphabets(3, 27, 73, 20)
+    assert_equal "k", @cipher.character_translator("h", shifted_alphabets, 1)
+    assert_equal "e", @cipher.character_translator("e", shifted_alphabets, 2)
+    assert_equal "d", @cipher.character_translator("l", shifted_alphabets, 3)
+    assert_equal "e", @cipher.character_translator("l", shifted_alphabets, 4)
   end
 
   def test_it_can_shift_text_based_on_alphabet_set
