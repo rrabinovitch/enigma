@@ -13,7 +13,7 @@ class Enigma < Cipher
     shifted_alphabets = shifted_alphabets(shift_hash[:A],
       shift_hash[:B], shift_hash[:C], shift_hash[:D])
     message_chars = message.downcase.chars
-    encrypted_message = shift(message_chars, shifted_alphabets)
+    encrypted_message = shift(message_chars, shifted_alphabets).chomp
     {encryption: encrypted_message, key: key, date: date}
   end
 
@@ -22,7 +22,7 @@ class Enigma < Cipher
     unshifted_alphabets = shifted_alphabets(-(shift_hash[:A]),
       -(shift_hash[:B]), -(shift_hash[:C]), -(shift_hash[:D]))
     ciphertext_chars = ciphertext.downcase.chars
-    decrypted_message = shift(ciphertext_chars, unshifted_alphabets)
+    decrypted_message = shift(ciphertext_chars, unshifted_alphabets).chomp
     {decryption: decrypted_message, key: key, date: date}
   end
 end
