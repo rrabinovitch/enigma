@@ -19,7 +19,7 @@ This project is the culmination of my learnings from Mod1 of the Turing School o
 * Version Control
   * Project includes >120 commits and 12 branches, broken down by method and related functionality or editing.
   * Most - if not all - commits cover limited individual pieces of functionality
-  * Commit messages are (subjectively) clear
+  * Commit messages are (subjectively ¯\_(ツ)_/¯ ) clear
   
 
 ## Local Set Up
