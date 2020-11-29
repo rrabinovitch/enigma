@@ -1,7 +1,7 @@
 # Enigma
 Turing Mod1 final solo project - specs [here](https://backend.turing.io/module1/projects/enigma/index)
 
-This was project encrypts and decrypts messages via the command line. These functions are executed using a shift (consisting of a key and an offset), which determines how many indexes each letter should be shifted. When given an encryption command with a key and offset, the program will generate the shift based on those inputs; and when not provided with those inputs, they will be generated automatically by the program. Decryption requires a key and date in order to identify the shift and decode the message.
+This CLI app encrypts and decrypts messages via the command line. These functions are executed using a shift (consisting of a key and an offset), which determines how many indexes each letter should be shifted. When given an encryption command with a key and offset, the program will generate the shift based on those inputs; and when not provided with those inputs, they will be generated automatically by the program. Decryption requires a key and date in order to identify the shift and decode the message.
 
 This project is the culmination of my learnings from Mod1 of the Turing School of Software & Design Backend Program. It demonstrates proficiency with:
 * OOP Principles:
